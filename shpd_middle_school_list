@@ -1,0 +1,33 @@
+import requests
+import pandas as pd
+import numpy as np
+from bs4 import BeautifulSoup
+
+def get_web_content(url, headers,code):
+    req = requests.get(url, headers = headers)
+    req.encoding = code
+    req = req.text
+    # type(req)
+
+    data = []
+    soup = BeautifulSoup(req, 'html.parser')
+    div = soup.find('tbody').find_all('tr')
+    for tr in div:
+        div2 = tr.find_all('td')
+        content = []
+        for td in div2:
+            content.append(td.p.get_text(strip = True))
+        data.append(content)
+    return data
+
+urls = ['http://edu.sh.gov.cn/html/article/202004/106281.html','http://edu.sh.gov.cn/html/article/202004/106280.html']
+headers =  {'user-agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.75 Safari/537.36'}
+code = 'GB2312'
+
+
+
+for url in urls:  
+    data = get_web_content(url,headers,code)
+    dist = pd.DataFrame(data)
+    print(dist)
+    dist.to_csv('zip.csv', header = False)
