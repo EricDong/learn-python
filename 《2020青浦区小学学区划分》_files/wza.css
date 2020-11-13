@@ -1,0 +1,44 @@
+/* Reset Style */
+#skip {
+	height: 0;
+	overflow: hidden;
+	width: 800px;
+}
+.formlabel {
+    display: none;
+    padding: 6px 0 8px;
+    width: 171px;
+}
+
+.no-margin-left {
+    margin-left: 0px !important;
+}
+
+
+.opened_right_top .li_none{display:none}
+
+.opened_left_ul1 .content div{margin: 4%;line-height: 30px;}
+.opened_right_top .li_last2 button{
+    width: 80px;
+    height: 30px;
+    background-color: #569800;
+    color: #fff;
+	text-align:center;
+}
+.mobTitle a{ color:#FFF}
+
+/*¶ÔÑéÖ¤Âë*/
+input[disabled], textarea[disabled], input[readonly], textarea[readonly] {
+    background-color: #eee;
+    cursor: not-allowed;
+    border: 1px solid #ccc;
+    color: #555;
+    display: inline-block;
+    vertical-align: middle;
+}
+.codeYZM {
+    font-family: Arial;
+    font-style: italic;
+    font-weight: bolder;
+    letter-spacing: 3px;
+}

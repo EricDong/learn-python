@@ -1,0 +1,379 @@
+
+<!-- saved from url=(0054)http://realvoice.ewdcloud.com:7043/tts/msc/voice/speak -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <title>ET-player音频播放器21</title>
+    
+
+    <style>
+        body{padding: 0 !important;margin: 0 !important;}
+        .jp-audio {border-radius: 5px; margin: auto !important; min-width: 300px; max-width: 380px }
+        .jp-interface {position: relative;background-color: #eee;width: 100%;
+            background-image: -moz-linear-gradient(top,#f4f4f4,#d3d3d3);
+            background-image: -webkit-gradient(linear,0 0,0 100%,from(#f4f4f4),to(#d3d3d3));
+            background-image: -webkit-linear-gradient(top,#f4f4f4,#d3d3d3);
+            background-image: -o-linear-gradient(top,#f4f4f4,#ddd);
+            background-image: linear-gradient(to bottom,#f4f4f4,#d3d3d3);
+        }
+        .jp-audio .jp-interface {height: 70px;border-radius: 5px; }
+        .jp-controls-holder {clear: both;margin: 0 auto;position: relative;overflow: hidden;top: -20px;padding: 5px 0;}
+        .jp-interface .jp-controls {margin: 0;padding: 0;}
+        .jp-audio .jp-controls {padding: 22px 20px 0 10px; }
+        .jp-controls button {display: block;float: left;overflow: hidden;text-indent: -9999px;border: none;cursor: pointer; border-radius: 100%;-webkit-box-shadow: 1px 1px 6px rgba(0,0,0,0.5);-moz-box-shadow: 1px 1px 6px rgba(0,0,0,0.5);box-shadow: 1px 1px 6px rgba(0,0,0,0.5);}
+        .jp-play {width: 40px;height: 40px;background: url("https://voice.ewdcloud.com/files/ET.audio.player.png") 0 0 no-repeat; }
+        .jp-play:focus {background: url("https://voice.ewdcloud.com/files/ET.audio.player.png") -41px 0 no-repeat;
+            -webkit-box-shadow: 0px 0px 6px rgba(17, 73, 150, 0.9);
+            -moz-box-shadow: 0px 0px 6px rgba(17, 73, 150, 0.9);
+            box-shadow: 0px 0px 6px rgba(17, 73, 150, 0.9);
+        }
+
+        .jp-state-playing .jp-play {background: url("https://voice.ewdcloud.com/files/ET.audio.player.png") 0 -42px no-repeat; }
+        .jp-state-playing .jp-play:focus {background: url("https://voice.ewdcloud.com/files/ET.audio.player.png") -41px -42px no-repeat; }
+        .jp-stop, .jp-previous, .jp-next {width: 28px;height: 28px;margin-top: 6px; }
+        .jp-stop {background: url("https://voice.ewdcloud.com/files/ET.audio.player.png") 0 -83px no-repeat;margin-left: 10px; }
+        .jp-stop:focus {background: url("https://voice.ewdcloud.com/files/ET.audio.player.png") -29px -83px no-repeat;
+            -webkit-box-shadow: 1px 2px 6px rgba(17, 73, 150, 0.9);
+            -moz-box-shadow: 1px 2px 6px rgba(17, 73, 150, 0.9);
+            box-shadow: 1px 2px 6px rgba(17, 73, 150, 0.9);}
+        .jp-previous {background: url("https://voice.ewdcloud.com/files/ET.audio.player.png") 0 -112px no-repeat; }
+        .jp-previous:focus {background: url("https://voice.ewdcloud.com/files/ET.audio.player.png") -29px -112px no-repeat; }
+        .jp-next {background: url("https://voice.ewdcloud.com/files/ET.audio.player.png") 0 -141px no-repeat; }
+        .jp-next:focus {background: url("https://voice.ewdcloud.com/files/ET.audio.player.png") -29px -141px no-repeat; }
+        .jp-progress {background-color: #ddd; -webkit-box-shadow: inset 0 0px 4px rgba(0,0,0,.2);box-shadow: inset 0 0px 4px rgba(0,0,0,.2);border-radius: 50px;}
+        .jp-audio .jp-progress {position: absolute;height: 10px; width: 96% !important;left: 2% !important;top: 5px;}
+        .jp-audio .jp-type-single .jp-progress {left: 110px;width: 186px; }
+        .jp-seek-bar {width: 0px;border-radius: 100%;height: 100%;cursor: pointer; }
+        .jp-play-bar {background: url("https://voice.ewdcloud.com/files/ET.audio.player.png") 0 -218px repeat-x;width: 0px;border-radius: 10px;height: 100%;
+            -webkit-box-shadow: 0px 0px 6px rgba(17, 73, 150, 0.6);
+            -moz-box-shadow: 0px 0px 6px rgba(17, 73, 150, 0.6);
+            box-shadow: 0px 0px 6px rgba(17, 73, 150, 0.6);}
+        .jp-state-no-volume .jp-volume-controls {display: none; }
+        .jp-volume-controls {position: absolute;top: 32px; right: 10px;width: 105px;display: block;height: 15px;    left: inherit;}
+        .jp-volume-controls button {display: block;position: absolute;overflow: hidden;text-indent: -9999px;border: none;cursor: pointer; }
+        .jp-mute,.jp-volume-max {width: 18px;height: 15px; }
+        .jp-volume-max {left: 80px; }
+        .jp-mute {background: url("https://voice.ewdcloud.com/files/ET.audio.player.png") 0 -170px no-repeat; }
+        .jp-mute:focus {background: url("https://voice.ewdcloud.com/files/ET.audio.player.png") -19px -170px no-repeat; }
+        .jp-state-muted .jp-mute {background: url("https://voice.ewdcloud.com/files/ET.audio.player.png") -60px -170px no-repeat; }
+        .jp-state-muted .jp-mute:focus {background: url("https://voice.ewdcloud.com/files/ET.audio.player.png") -79px -170px no-repeat; }
+        .jp-volume-max {background: url("https://voice.ewdcloud.com/files/ET.audio.player.png") 0 -186px no-repeat; }
+        .jp-volume-max:focus {background: url("https://voice.ewdcloud.com/files/ET.audio.player.png") -19px -186px no-repeat; }
+        .jp-volume-bar {position: absolute;overflow: hidden;top: 5px;left: 22px;width: 50px;height: 6px;cursor: pointer; background-color: #ddd;-webkit-box-shadow: inset 0 0px 4px rgba(0,0,0,.2);box-shadow: inset 0 0px 4px rgba(0,0,0,.2);border-radius: 5px;}
+        .jp-volume-bar-value {background: url("https://voice.ewdcloud.com/files/ET.audio.player.png") 0 -256px repeat-x;width: 0px;border-radius: 5px;height: 6px;
+            -webkit-box-shadow: 0px 0px 6px rgba(17, 73, 150, 0.9);
+            -moz-box-shadow: 0px 0px 6px rgba(17, 73, 150, 0.9);
+            box-shadow: 0px 0px 6px rgba(17, 73, 150, 0.9);}
+        .jp-audio .jp-time-holder {position: absolute;top: 32px;width: auto !important;}
+        .jp-audio .jp-type-single .jp-time-holder {left: 120px;width: 186px; }
+        .jp-current-time,.jp-duration {font-size: 12px;font-style: oblique;  }
+        .jp-current-time {float: left;display: inline;cursor: default; margin-right: 15px;}
+        .jp-duration {float: right;display: inline;text-align: right;cursor: pointer; }
+        .jp-jplayer audio,
+        .jp-jplayer {width: 100%;height: 100%; position: relative;}
+        .jp-jplayer img{border-top-left-radius:5px;border-top-right-radius:5px}
+        .jp-jplayer video,.jp-jplayer img{width: 100%;height: 100%;}
+        .jp-toggles {padding: 0;margin: 0 auto;overflow: hidden; }
+        .jp-audio .jp-type-single .jp-toggles {width: 25px; }
+        .jp-toggles button {display: block;float: left;width: 25px;height: 18px;text-indent: -9999px;line-height: 100%;border: none;cursor: pointer; }
+        .jp-repeat {background: url("https://voice.ewdcloud.com/files/ET.audio.player.png") 0 -290px no-repeat; }
+        .jp-repeat:focus {background: url("https://voice.ewdcloud.com/files/ET.audio.player.png") -30px -290px no-repeat; }
+        .jp-state-looped .jp-repeat {background: url("https://voice.ewdcloud.com/files/ET.audio.player.png") -60px -290px no-repeat; }
+        .jp-state-looped .jp-repeat:focus {background: url("https://voice.ewdcloud.com/files/ET.audio.player.png") -90px -290px no-repeat; background-color: #ddd;border-radius: 3px;-webkit-box-shadow: inset 0 0px 4px rgba(0,0,0,.2);box-shadow: inset 0 0px 4px rgba(0,0,0,.2);}
+        .jp-no-solution {padding: 5px;font-size: .8em;background-color: #eee;border: 2px solid #009be3;color: #000;display: none; }
+        .jp-no-solution a {color: #000; }
+        .jp-no-solution span {font-size: 1em;display: block;text-align: center;font-weight: bold;}
+
+
+        .jp-gui.jp-interface p{display: none;}
+
+        @media (max-width: 480px) {
+            .jp-volume-controls,button.jp-stop{display: none !important;}
+            .jp-gui.jp-interface p{display: block;}
+            .jp-gui.jp-interface p{
+                font-size: 12px;
+                position: absolute;
+                left: 40%;
+                top: -2px;
+                color: #999;
+            }
+            .jp-interface {
+                background: none !important;
+            }
+            .jp-audio .jp-interface {
+                border: 1px solid #eee;
+                background: #fdfdfd;
+            }
+            .jp-audio .jp-controls {
+                padding: 16px 20px 0 10px;
+            }
+            .jp-controls button {
+                -webkit-box-shadow: none;
+                -moz-box-shadow: none;
+                box-shadow: none;
+            }
+            .jp-gui .jp-controls .jp-play {
+                width: 40px;
+                height: 40px;
+                background: url("https://voice.ewdcloud.com/stopplay.png") no-repeat !important;
+                background-size: 100% !important;
+            }
+            .jp-play:focus {
+                background: none !important;
+                -webkit-box-shadow: none;
+                -moz-box-shadow: none;
+                box-shadow: none;
+            }
+            .jp-state-playing .jp-gui .jp-controls .jp-play {
+                background: url("https://voice.ewdcloud.com/bofang.gif") no-repeat !important;
+                background-size: 100% !important;
+            }
+            .jp-state-playing .jp-gui .jp-controls .jp-play:focus {
+                background: url("https://voice.ewdcloud.com/bofang.gif") no-repeat !important;
+                background-size: 100% !important;
+            }
+            .jp-gui .jp-controls .jp-stop {
+                background: url("https://voice.ewdcloud.com/stopplay.png") no-repeat !important;
+                background-size: 100% !important;
+            }
+            .jp-gui .jp-controls .jp-stop:focus {
+                background: url("https://voice.ewdcloud.com/stopplay.png") no-repeat !important;
+                background-size: 100% !important;
+            }
+            .jp-progress {
+                background-color: #eee;
+                -webkit-box-shadow: none;
+                -moz-box-shadow: none;
+                box-shadow: none;
+            }
+            .jp-play-bar {
+                background: rgb(9, 183, 233);
+                height: 4px;
+                position: relative;
+                overflow: inherit !important;
+                box-shadow: 0px 0px 6px #00c4ff;
+            }
+            .jp-play-bar:after {
+                content: "";
+                display: block;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: rgb(0, 198, 255);
+                position: absolute;
+                right: -2px;
+                top: -4px;
+                box-shadow: 0 0 8px rgba(0, 198, 255, 0.75);
+                border: 2px solid #ffffff;
+            }
+            .jp-audio .jp-time-holder {
+                position: absolute;
+                top: 44px;
+                width: 80% !important;
+                left: 18% !important;
+                color: #999;
+            }
+            .jp-audio .jp-progress {
+                position: absolute;
+                height: 4px;
+                width:76% !important;
+                left: 20% !important;
+                top: 32px;
+            }
+            .jp-duration{ margin-right: 18px;}
+            .jp-current-time{margin-left: 6px;}
+        }
+        @media (max-width: 380px) {
+            .jp-audio .jp-progress {
+                width: 78% !important;
+                left: 19% !important;
+            }
+            .jp-play-bar:after {
+                right: -10px;
+            }
+            .jp-audio {
+                margin: 0 !important;
+                max-width: 310px !important;
+            }
+        }
+    </style>
+    <!--[if lt IE 9]>
+    <script src="https://voice.ewdcloud.com/files/html5.min.js"></script>
+    <script src="https://voice.ewdcloud.com/files/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body marginwidth="0">
+<div id="jquery_jplayer_1" class="jp-jplayer" style="width: 0px; height: 0px;"><img id="jp_poster_0" style="width: 0px; height: 0px; display: none;"><audio id="jp_audio_0" preload="metadata"></audio></div>
+<div id="jp_container_1" class="jp-audio" role="application" aria-label="media player" style="margin: auto;">
+    <div class="jp-type-single">
+        <div class="jp-gui jp-interface">
+            <div class="jp-controls">
+                <button class="jp-play" role="button" tabindex="0" onclick="toPlay(&#39;https://mp3.ewdcloud.com/mp3/mp3&#39; + &#39;/default.mp3&#39;)">播放</button>
+                <button class="jp-stop" role="button" tabindex="0">停止</button>
+            </div>
+            <div class="jp-progress">
+                <div class="jp-seek-bar" style="width: 0%;">
+                    <div class="jp-play-bar" style="width: 0%;"></div>
+                </div>
+            </div>
+            <div class="jp-volume-controls">
+                <button class="jp-mute" role="button" tabindex="0">打开声音</button>
+                <button class="jp-volume-max" role="button" tabindex="0">最大声音</button>
+                <div class="jp-volume-bar">
+                    <div class="jp-volume-bar-value" style="width: 80%;"></div>
+                </div>
+            </div>
+            <div class="jp-time-holder">
+                <div class="jp-current-time" role="timer" aria-label="time">00:00</div>
+                <div class="jp-duration" role="timer" aria-label="duration">00:00</div>
+            </div>
+        </div>
+        <div class="jp-no-solution" style="display: none;">
+            <span>更新提示</span> 要播放此视频需要更新您浏览器的<a href="http://get.adobe.com/flashplayer/" target="_blank">Flash 插件</a>
+        </div>
+    </div>
+</div>
+
+<!--Main JS-->
+<script type="text/javascript" src="./jquery.min.js"></script>
+<script type="text/javascript" src="./jquery.jplayer.min.js"></script>
+<script type="text/javascript">
+    (function ($) {
+
+        "use strike";
+
+        $.jPlayer.prototype.options = $.extend($.jPlayer.prototype.options, {
+            supplied: 'mp3'
+            , wmode: 'window'
+            , smoothPlayBar: true
+            , keyEnabled: true
+            , remainingDuration: true
+            , toggleDuration: true
+            , keyBindings: {
+                stop: {
+                    key: 48, fn: function(f) { //key: 0
+                        f.stop();
+                    }
+                }, play: {
+                    key: 49, fn: function(f) {  //key 1
+                        if (f.status.paused) {
+                            f.play();
+                        } else {
+                            f.pause();
+                        }
+                    }
+                }, rewind: {
+                    key: 50, fn: function(f) {  //key 2
+                        if (f.status.currentTime > 5) {
+                            f.playHead(f.status.currentTime - 5);
+                        } else {
+                            f.playHead(0);
+                        }
+                    }
+                }, forward: {
+                    key: 51, fn: function(f) {  //key 3
+                        f.playHead(f.status.currentTime + 5);
+                    }
+                }, fullScreen: {
+                    key: 93, fn: function(f) {  //key enter
+                        if (f.status.video || f.options.audioFullScreen) {
+                            f._setOption("fullScreen", !f.options.fullScreen);
+                        }
+                    }
+                }, muted: {
+                    key: 8, fn: function(f) { //key backspace
+                        f._muted(!f.options.muted);
+                    }
+                }, volumeUp: {
+                    key: 55, fn: function(f) {  //key 7
+                        f.volume(f.options.volume + 0.1);
+                    }
+                }, volumeDown: {
+                    key: 54, fn: function(f) {  //key 6
+                        f.volume(f.options.volume - 0.1);
+                    }
+                }
+            }
+        });
+    })(jQuery);
+
+    //<![CDATA[
+    $(document).ready(function () {
+        var sleepTime = 3000;
+        var requestCount = 30;
+        var count = 0;
+
+        initJplayer();
+
+        function checkMedia() {
+            $.post('exists?rand=' + Math.random() ,{filename:"",url:""}, function (res) {
+                if (res.exists) {
+                    initJplayer(res.filePath);
+                } else {
+                    count++;
+                    if (count < requestCount) {
+                        setTimeout(function () {
+                            checkMedia();
+                        }, sleepTime);
+                    }
+                }
+            });
+        }
+
+        function initJplayer(path) {
+            $('#jquery_jplayer_1').jPlayer({
+                ready: function (event) {
+                    // $(this).jPlayer('setMedia', {
+                    //     title: '',
+                    //     mp3: path
+                    // });
+                },
+                swfPath: 'https://voice.ewdcloud.com/files/jquery.Jplayer.swf',
+                supplied: "mp3",
+                wmode: "window",
+                useStateClassSkin: true,
+                autoBlur: false,
+                smoothPlayBar: true,
+                keyEnabled: true,
+                remainingDuration: true,
+                toggleDuration: true
+            });
+        }
+    });
+    var isPlaying=false;
+    var hasLoaded=false;
+    function toPlay(path){
+        if(isPlaying)
+        {
+            toPause();
+        }
+        else
+        {
+            isPlaying=true;
+            if(hasLoaded)
+            {
+                $("#jquery_jplayer_1").jPlayer("play");
+            }
+            else
+            {
+                $("#jquery_jplayer_1").jPlayer("setMedia", {
+                    title: '',
+                    mp3: path
+                });
+                hasLoaded=true;
+            }
+        }
+    }
+    function toPause(){
+        isPlaying=false;
+        $("#jquery_jplayer_1").jPlayer("pause");
+    }
+    //]]>
+</script>
+
+
+
+
+</body></html>
